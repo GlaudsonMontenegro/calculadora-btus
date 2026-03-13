@@ -1,9 +1,9 @@
 import streamlit as st
 
 # 1. Configuração da Página
-st.set_page_config(page_title="Calculadora BTU - Natal Service", page_icon="❄️")
+st.set_page_config(page_title="Calculadora BTU ", page_icon="❄️")
 
-st.title("❄️ Sistema Natal Service")
+st.title("❄️ Calculadora de Btu's")
 st.subheader("Dimensionamento de Carga Térmica Comercial")
 st.write("Preencha os dados abaixo para calcular o equipamento ideal.")
 st.write("---")
