@@ -4,7 +4,7 @@ import streamlit as st
 st.set_page_config(page_title="Calculadora BTU ", page_icon="❄️")
 
 st.title("❄️ Calculadora de Btu's")
-st.subheader("Dimensionamento de Carga Térmica Comercial")
+st.subheader("Dimensionamento de Carga Térmica.")
 st.write("Preencha os dados abaixo para calcular o equipamento ideal.")
 st.write("---")
 
