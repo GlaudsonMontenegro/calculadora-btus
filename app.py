@@ -77,3 +77,18 @@ if st.button("Calcular Carga Térmica", type="primary"):
         st.markdown("### 📊 Relatório Final")
         st.write(f"**Carga Térmica Exata:** {carga_total:.0f} BTUs")
         st.markdown(f"#### 🎯 Sugestão de Instalação: **{sugestao}**")
+
+st.write("---")
+st.markdown(
+    """
+    <div style='text-align: center;'>
+        <p style='font-size: 0.8rem; color: gray;'>
+            Desenvolvido com ❤️ por 
+            <a href='https://github.com/GlaudsonMontenegro' target='_blank' style='text-decoration: none; color: #004aad; font-weight: bold;'>
+                Glaudson Montenegro
+            </a>
+        </p>
+    </div>
+    """, 
+    unsafe_allow_html=True
+)
