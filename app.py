@@ -3,7 +3,7 @@ import streamlit as st
 # 1. Configuração da Página e Estética Visual
 st.set_page_config(page_title="GM - Engenharia de Software", page_icon="❄️", layout="centered")
 
-# --- CSS CUSTOMIZADO ---
+# --- CSS CUSTOMIZADO (Identidade Visual GM - Total Azul) ---
 st.markdown("""
     <style>
     /* Fundo da página */
@@ -11,17 +11,32 @@ st.markdown("""
         background-color: #f0f2f6;
     }
     
-    /* Cards brancos de entrada */
+    /* CARDS AZUIS (Entrada e Resultado) */
     [data-testid="stVerticalBlockBorderWrapper"] {
-        background-color: white;
+        background-color: #004aad !important;
         padding: 30px !important;
-        border-radius: 15px !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+        border-radius: 20px !important;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1) !important;
         border: none !important;
         margin-bottom: 20px !important;
     }
 
-    /* Botão Cinza (conforme você confirmou que funcionou) */
+    /* Forçando texto branco dentro dos cards azuis */
+    [data-testid="stVerticalBlockBorderWrapper"] p, 
+    [data-testid="stVerticalBlockBorderWrapper"] h4, 
+    [data-testid="stVerticalBlockBorderWrapper"] label,
+    [data-testid="stVerticalBlockBorderWrapper"] span {
+        color: white !important;
+    }
+
+    /* Ajuste para os campos de entrada (Inputs) aparecerem bem no fundo azul */
+    .stNumberInput input, .stSelectbox div, .stRadio label {
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        color: white !important;
+        border-radius: 8px !important;
+    }
+
+    /* Botão Principal Cinza */
     .stButton>button {
         width: 100%;
         background-color: #95a5a6 !important;
@@ -32,27 +47,20 @@ st.markdown("""
         border: none !important;
     }
 
-    /* ESTILO DO CARD AZUL DE RESULTADO */
-    .card-resultado {
-        background-color: #004aad !important;
-        padding: 40px !important;
-        border-radius: 25px !important;
-        text-align: center !important;
-        margin: 20px 0px !important;
-        box-shadow: 0 10px 20px rgba(0, 74, 173, 0.2) !important;
-    }
-    
-    /* Forçando a cor branca em todos os textos do card */
-    .card-resultado h2, .card-resultado h1, .card-resultado p {
-        color: white !important;
-        font-family: 'sans serif' !important;
-        margin: 0 !important;
-    }
-    
+    /* Estilo específico para o valor do BTU no resultado */
     .valor-btu {
-        font-size: 3.5rem !important;
+        font-size: 4rem !important;
         font-weight: 800 !important;
+        color: white !important;
+        text-align: center;
         margin-top: 10px !important;
+    }
+    
+    .titulo-card {
+        color: white !important;
+        font-weight: 700 !important;
+        text-align: center;
+        margin-bottom: 15px !important;
     }
     </style>
     """, unsafe_allow_html=True)
@@ -64,10 +72,10 @@ with col_logo_b:
 
 st.markdown("<p style='text-align: center; color: gray; margin-top: -10px;'>Sistema Especialista em Dimensionamento Térmico</p>", unsafe_allow_html=True)
 
-# --- ENTRADA DE DADOS ---
+# --- ENTRADA DE DADOS (AGORA EM CARDS AZUIS) ---
 
 with st.container(border=True):
-    st.markdown("#### 📏 Dimensões do Ambiente")
+    st.markdown("<h4 class='titulo-card'>📏 Dimensões do Ambiente</h4>", unsafe_allow_html=True)
     opcao_medida = st.radio("Método:", ["Área total (m²)", "Comprimento x Largura"], horizontal=True)
 
     area = 0.0
@@ -81,10 +89,10 @@ with st.container(border=True):
         with c1: comprimento = st.number_input("Comprimento (m)", min_value=0.0, step=0.1)
         with c2: largura = st.number_input("Largura (m)", min_value=0.0, step=0.1)
         area = comprimento * largura
-        if area > 0: st.info(f"Área calculada: **{area:.2f} m²**")
+        if area > 0: st.write(f"**Área calculada: {area:.2f} m²**")
 
 with st.container(border=True):
-    st.markdown("#### 🔥 Fatores de Aquecimento")
+    st.markdown("<h4 class='titulo-card'>🔥 Fatores de Aquecimento</h4>", unsafe_allow_html=True)
     col_a, col_b = st.columns(2)
     with col_a:
         sol = st.selectbox("Incidência Solar:", ["Sombra/Manhã", "Sol o dia todo"])
@@ -96,21 +104,18 @@ with st.container(border=True):
 
 if st.button("CALCULAR E ANALISAR DISPOSIÇÃO"):
     if area <= 0:
-        st.warning("⚠️ Informe as medidas do ambiente.")
+        st.warning("⚠️ Por favor, informe as medidas do ambiente.")
     else:
         fator = 800 if sol == "Sol o dia todo" else 600
         carga_total = (area * fator) + ((pessoas - 1) * fator) + (eletronicos * fator)
 
-        # CARD AZUL PERSONALIZADO
-        st.markdown(f"""
-            <div class="card-resultado">
-                <p style="font-size: 1.2rem; opacity: 0.9;">✅ Dimensionamento Concluído</p>
-                <p style="font-size: 1rem; opacity: 0.8; margin-top: 10px;">Carga Térmica Necessária</p>
-                <h1 class="valor-btu">{carga_total:,.0f} BTUs</h1>
-            </div>
-            """.replace(',', '.'), unsafe_allow_html=True)
+        # CARD AZUL DE RESULTADO (Mesmo estilo dos outros)
+        with st.container(border=True):
+            st.markdown("<p style='text-align: center; font-size: 1.3rem;'>✅ Dimensionamento Concluído</p>", unsafe_allow_html=True)
+            st.markdown("<p style='text-align: center; opacity: 0.8;'>Carga Térmica Necessária</p>", unsafe_allow_html=True)
+            st.markdown(f"<h1 class='valor-btu'>{carga_total:,.0f} BTUs</h1>".replace(',', '.'), unsafe_allow_html=True)
         
-        # Sugestões
+        # SUGESTÕES DE EQUIPAMENTOS
         st.markdown("### 🎯 Sugestões de Equipamentos")
         
         is_comprido = False
@@ -135,5 +140,13 @@ if st.button("CALCULAR E ANALISAR DISPOSIÇÃO"):
                 st.success(f"📍 {qtd_12}x 12.000 BTUs")
                 if is_comprido: st.warning("💡 Recomendado para o formato do ambiente.")
 
+        # ANÁLISE TÉCNICA (Custo-Benefício)
+        with st.expander("📄 Ver Análise de Custo-Benefício"):
+            st.write("""
+            * **Redundância Técnica:** Dividir a carga em várias máquinas evita que o ambiente fique totalmente sem refrigeração em caso de falha de uma unidade.
+            * **Manutenção Acessível:** Peças para máquinas de 12.000 BTUs são produzidas em larga escala, tornando a reposição 60% mais barata e rápida do que em sistemas centrais.
+            * **Distribuição de Fluxo:** Em ambientes com geometria irregular, múltiplas unidades garantem que não existam 'pontos mortos' de calor.
+            """)
+
 # --- RODAPÉ ---
-st.markdown("<br><hr><div style='text-align: center; color: gray; font-size: 0.8rem;'>Desenvolvido por <b>Glaudson Montenegro</b> | Projeto ADS</div>", unsafe_allow_html=True)
+st.markdown("<br><hr><div style='text-align: center; color: gray; font-size: 0.8rem;'>Desenvolvido por <b>Glaudson Montenegro</b> | Projeto ADS - Portfólio Pessoal</div>", unsafe_allow_html=True)
