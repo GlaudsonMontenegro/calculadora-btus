@@ -11,15 +11,21 @@ st.markdown("""
         background-color: #f0f2f6;
     }
     
-    /* Estilização dos Containers brancos (Cards de entrada) */
     [data-testid="stVerticalBlockBorderWrapper"] {
-        background-color: #blue !important; /* Aqui nasce o azul */
-        padding: 30px !important;
-        border-radius: 15px !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
-        border: none !important;
-        margin-bottom: 20px !important;
-    }
+    background-color: #004aad !important;
+    padding: 30px !important;
+    border-radius: 15px !important;
+}
+
+/* O SEGREDO: Forçar a cor branca em todos os textos, labels e ícones dentro desse container */
+[data-testid="stVerticalBlockBorderWrapper"] * {
+    color: white !important;
+}
+
+/* Garante que os campos de input continuem legíveis */
+[data-testid="stVerticalBlockBorderWrapper"] input {
+    color: black !important; /* Texto que você digita fica preto para aparecer no fundo branco do input */
+}
 
     /* Estilo do Botão Principal (Cinza para destaque) */
     .stButton>button {
