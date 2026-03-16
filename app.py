@@ -13,7 +13,7 @@ st.markdown("""
     
     /* Estilização dos Containers brancos (Cards de entrada) */
     [data-testid="stVerticalBlockBorderWrapper"] {
-        background-color: white;
+        background-color: #004aad !important; /* Aqui nasce o azul */
         padding: 30px !important;
         border-radius: 15px !important;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
