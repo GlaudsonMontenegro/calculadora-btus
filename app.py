@@ -44,7 +44,7 @@ st.markdown("""
     """, unsafe_allow_html=True)
 
 # Cabeçalho
-st.markdown("<h1 class='titulo-pro'>❄️ Natal Service</h1>", unsafe_allow_html=True)
+st.markdown("<h1 class='titulo-pro'>❄️ GM TECNOLOGIA</h1>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: gray;'>Sistema Especialista em Dimensionamento Térmico</p>", unsafe_allow_html=True)
 
 # --- INÍCIO DO FORMULÁRIO EM CONTAINERS ---
