@@ -36,6 +36,46 @@ with col4:
     pessoas_fixas = st.number_input("Funcionários fixos", min_value=0, value=0, step=1)
     pessoas_rotativas = st.number_input("Clientes rotativos (Máx)", min_value=0, value=0, step=1)
     eletronicos = st.number_input("Equipamentos eletrônicos", min_value=0, value=0, step=1)
+if st.button("Calcular e Otimizar Carga", type="primary"):
+    if area <= 0:
+        st.error("Por favor, informe uma área válida.")
+    else:
+        st.success("Cálculo concluído!")
+        st.metric("Carga Térmica Total", f"{carga_total:,.0f} BTUs".replace(',', '.'))
+        
+        st.markdown("### 🎯 Sugestão de Equipamentos")
+        
+        # Lógica de Divisão Estratégica
+        if carga_total < 24000:
+            # Para cargas pequenas, sugere a máquina única mais próxima
+            capacidades = [9000, 12000, 18000]
+            sugestao = 18000 # padrão caso passe de 18
+            for cap in capacidades:
+                if cap >= carga_total:
+                    sugestao = cap
+                    break
+            st.write(f"✅ **Opção Única:** 01 máquina de **{sugestao:,.0f} BTUs**".replace(',', '.'))
+            
+        else:
+            # Lógica de Otimização (A partir de 24k divide por 12k)
+            qtd_maquinas = int(carga_total / 12000)
+            if carga_total % 12000 > 2000: # Margem de tolerância
+                qtd_maquinas += 1
+                
+            st.info(f"💡 **Sugestão de Otimização Natal Service:**")
+            st.write(f"Para melhor circulação de ar, instale **{qtd_maquinas:02d} máquinas de 12.000 BTUs**.")
+            
+            # Cálculo do custo-benefício (Exemplo de lógica de ADS)
+            with st.expander("Por que dividir a carga?"):
+                st.write("""
+                1. **Distribuição Térmica:** O ar frio alcança todos os cantos do ambiente.
+                2. **Redundância:** Se uma máquina precisar de manutenção, o ambiente não fica totalmente sem refrigeração.
+                3. **Economia:** Máquinas de 12k costumam ter peças mais baratas e fácil reposição no mercado.
+                """)
+
+        # Rodapé de Autoria
+        st.write("---")
+        st.caption("Desenvolvido por Glaudson Montenegro | Portfólio ADS")
 
 # 4. Botão de Ação e Processamento Matemático
 if st.button("Calcular Carga Térmica", type="primary"):
