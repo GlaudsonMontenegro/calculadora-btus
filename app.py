@@ -1,7 +1,7 @@
 import streamlit as st
 
 # 1. Configuração da Página e Estética Visual
-st.set_page_config(page_title="Natal Service - Consultoria Pro", page_icon="❄️", layout="centered")
+st.set_page_config(page_title="GM TECNOLOGIA - Consultoria Pro", page_icon="❄️", layout="centered")
 
 # CSS Customizado para criar o efeito de "Cards" e profundidade
 st.markdown("""
