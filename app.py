@@ -65,7 +65,7 @@ if st.button("Calcular e Analisar Disposição", type="primary"):
 
         # --- LÓGICA DE CONSULTORIA TÉCNICA (O Diferencial do seu Portfólio) ---
         st.markdown("---")
-        st.markdown("### 🎯 Sugestões de Instalação Natal Service")
+        st.markdown("### 🎯 Sugestões de Instalação")
 
         # Analisamos a geometria para o técnico
         is_comprido = False
